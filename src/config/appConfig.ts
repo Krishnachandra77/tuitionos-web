@@ -38,8 +38,8 @@ export const APP_CONFIG: ReleaseConfig = {
     creditText: "Made by Krishna Chandra"
   },
  release: {
-    version: "1.0.4",
-    versionCode: 104,
+    version: "1.0.5",
+    versionCode: 105,
     fileSize: "23.3 MB",
     releaseDate: "September 27, 2026",
     apkFileName: "TuitionOS.apk",
