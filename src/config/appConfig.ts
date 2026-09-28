@@ -38,12 +38,12 @@ export const APP_CONFIG: ReleaseConfig = {
     creditText: "Made by Krishna Chandra"
   },
 release: {
-    version: "1.0.5",
-    versionCode: 105,
+    version: "1.0.7",
+    versionCode: 107,
     fileSize: "23.3 MB",
     releaseDate: "September 28, 2026",
     apkFileName: "TuitionOS.apk",
-    apkUrl: "https://github.com/Krishnachandra77/tuitionos-web/releases/download/1.0.5/TuitionOS.apk",
+    apkUrl: "https://github.com/Krishnachandra77/tuitionos-web/releases/download/1.0.7/TuitionOS.apk",
     packageName: "com.krishnachandra.tuitionos",
     minAndroidVersion: "Android 8.0 (Oreo) and above",
     recommendedAndroidVersion: "Android 11.0 or newer",
