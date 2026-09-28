@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, X, User, Phone, ShieldCheck, AlertCircle, Smartphone } from 'lucide-react';
+import { Download, X, User, ShieldCheck, AlertCircle } from 'lucide-react';
 import { useAppConfig } from '../context/ConfigContext';
 import { Logo } from './Logo';
 
@@ -7,7 +7,6 @@ export const DownloadDialogModal: React.FC = () => {
   const { isDownloadModalOpen, setIsDownloadModalOpen, executeApkDownload, config } = useAppConfig();
   
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   if (!isDownloadModalOpen) return null;
@@ -15,24 +14,15 @@ export const DownloadDialogModal: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cleanName = name.trim();
-    const cleanPhone = phone.trim();
 
     if (!cleanName) {
-      setError('Please enter your full name.');
-      return;
-    }
-
-    // Basic phone validation (at least 7 digits)
-    const digitsOnly = cleanPhone.replace(/[^0-9]/g, '');
-    if (digitsOnly.length < 7) {
-      setError('Please enter a valid mobile or WhatsApp number.');
+      setError('Please enter your name.');
       return;
     }
 
     setError(null);
-    executeApkDownload({ name: cleanName, phone: cleanPhone });
+    executeApkDownload({ name: cleanName, phone: 'Direct Download' });
     setName('');
-    setPhone('');
   };
 
   return (
@@ -59,18 +49,13 @@ export const DownloadDialogModal: React.FC = () => {
               <span>Version {config.release.version}</span>
               <span className="text-slate-300">·</span>
               <span>{config.release.fileSize}</span>
-              <span className="text-slate-300">·</span>
-              <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
-                <ShieldCheck className="w-3 h-3" />
-                Verified
-              </span>
             </div>
           </div>
         </div>
 
         {/* Informative notice */}
         <div className="p-3 bg-blue-50/70 border border-blue-100 rounded-xl text-xs text-slate-600 leading-relaxed mb-5">
-          Please enter your name and phone number to start your official APK download.
+          Enter your name to start downloading the official TuitionOS APK.
         </div>
 
         {/* Form */}
@@ -86,7 +71,6 @@ export const DownloadDialogModal: React.FC = () => {
               <input
                 type="text"
                 required
-                autoFocus
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -94,33 +78,9 @@ export const DownloadDialogModal: React.FC = () => {
                 }}
                 placeholder="e.g. Ramesh Kumar"
                 className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition-all placeholder:text-slate-400"
+                autoFocus
               />
             </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">
-              Phone / Mobile Number *
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                <Phone className="w-4 h-4" />
-              </div>
-              <input
-                type="tel"
-                required
-                value={phone}
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                  setError(null);
-                }}
-                placeholder="e.g. +91 98765 43210"
-                className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition-all placeholder:text-slate-400"
-              />
-            </div>
-            <p className="text-[10px] text-slate-400 mt-1 pl-1">
-              Required for APK installation update alerts and tuition verification.
-            </p>
           </div>
 
           {error && (
@@ -130,20 +90,26 @@ export const DownloadDialogModal: React.FC = () => {
             </div>
           )}
 
-          <div className="pt-2">
-            <button
-              type="submit"
-              className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm rounded-xl shadow-lg shadow-blue-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download TuitionOS APK</span>
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm rounded-xl shadow-lg shadow-blue-600/25 hover:shadow-blue-600/35 transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+          >
+            <Download className="w-4 h-4" />
+            <span>START DOWNLOAD</span>
+          </button>
         </form>
 
-        <p className="text-center text-[11px] text-slate-400 mt-4">
-          Safe & direct APK download · {config.creator.creditText}
-        </p>
+        {/* Trust Badges */}
+        <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-center gap-4 text-[11px] text-slate-500 font-medium">
+          <div className="flex items-center gap-1.5 text-emerald-600">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Verified APK</span>
+          </div>
+          <span className="text-slate-300">·</span>
+          <span>No Ads or Spyware</span>
+          <span className="text-slate-300">·</span>
+          <span>100% Free</span>
+        </div>
 
       </div>
     </div>
